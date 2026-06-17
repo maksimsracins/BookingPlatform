@@ -1,0 +1,11 @@
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Core/bin/Debug/net10.0/BookingPlatform.Core.deps.json
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Core/bin/Debug/net10.0/BookingPlatform.Core.dll
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Core/bin/Debug/net10.0/BookingPlatform.Core.pdb
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Core/obj/Debug/net10.0/BookingPlatform.Core.GeneratedMSBuildEditorConfig.editorconfig
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Core/obj/Debug/net10.0/BookingPlatform.Core.AssemblyInfoInputs.cache
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Core/obj/Debug/net10.0/BookingPlatform.Core.AssemblyInfo.cs
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Core/obj/Debug/net10.0/BookingPlatform.Core.csproj.CoreCompileInputs.cache
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Core/obj/Debug/net10.0/BookingPlatform.Core.dll
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Core/obj/Debug/net10.0/refint/BookingPlatform.Core.dll
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Core/obj/Debug/net10.0/BookingPlatform.Core.pdb
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Core/obj/Debug/net10.0/ref/BookingPlatform.Core.dll

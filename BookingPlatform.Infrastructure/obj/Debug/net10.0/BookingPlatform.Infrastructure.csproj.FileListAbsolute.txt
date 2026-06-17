@@ -1,0 +1,15 @@
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Infrastructure/bin/Debug/net10.0/BookingPlatform.Infrastructure.deps.json
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Infrastructure/bin/Debug/net10.0/BookingPlatform.Infrastructure.dll
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Infrastructure/bin/Debug/net10.0/BookingPlatform.Infrastructure.pdb
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Infrastructure/bin/Debug/net10.0/BookingPlatform.Core.dll
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Infrastructure/bin/Debug/net10.0/BookingPlatform.Core.pdb
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Infrastructure/obj/Debug/net10.0/BookingPlatform.Infrastructure.csproj.AssemblyReference.cache
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Infrastructure/obj/Debug/net10.0/BookingPlatform.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Infrastructure/obj/Debug/net10.0/BookingPlatform.Infrastructure.AssemblyInfoInputs.cache
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Infrastructure/obj/Debug/net10.0/BookingPlatform.Infrastructure.AssemblyInfo.cs
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Infrastructure/obj/Debug/net10.0/BookingPlatform.Infrastructure.csproj.CoreCompileInputs.cache
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Infrastructure/obj/Debug/net10.0/BookingP.AC04EF26.Up2Date
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Infrastructure/obj/Debug/net10.0/BookingPlatform.Infrastructure.dll
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Infrastructure/obj/Debug/net10.0/refint/BookingPlatform.Infrastructure.dll
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Infrastructure/obj/Debug/net10.0/BookingPlatform.Infrastructure.pdb
+/Users/maksims/Documents/_SHARED/Development/BookingPlatform/BookingPlatform/BookingPlatform.Infrastructure/obj/Debug/net10.0/ref/BookingPlatform.Infrastructure.dll

@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="BookingPlatform.Api/BookingPlatform.Api.csproj" />
+  <Project Path="BookingPlatform.Core/BookingPlatform.Core.csproj" />
+  <Project Path="BookingPlatform.Infrastructure/BookingPlatform.Infrastructure.csproj" />
+  <Project Path="BookingPlatform.Shared/BookingPlatform.Shared.csproj" />
+  <Project Path="BookingPlatform.Telegram/BookingPlatform.Telegram.csproj" />
+  <Project Path="BookingPlatform.Tests/BookingPlatform.Tests.csproj" />
+</Solution>
