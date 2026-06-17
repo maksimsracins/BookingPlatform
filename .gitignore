@@ -1,0 +1,111 @@
+# Visual Studio / .NET Core
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+*.dll
+*.exe
+*.appx
+*.msi
+*.nupkg
+
+# Package directories
+packages/
+artifacts/
+
+# NuGet
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+
+# Rider
+.idea/
+*.sln.iml
+
+# VS Code
+.vscode/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Entity Framework
+*.dbmdl
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# NCrunch
+*.ncrunch*
+_nCrunch_*
+
+# Build instrumentation
+*.log
+
+# User-specific files
+*.userprefs
+*.local
+
+# Mac
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# Database files
+*.mdf
+*.ldf
+
+# Publish folders
+publish/
+
+# Secret / local configuration files
+**/appsettings.Development.json
+**/appsettings.Local.json
+secrets.json
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Rider and VS cache
+.cache/
+
+# Coverage
+coverage/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Ignore Visual Studio Code workspace storage
+.vscode/*
+!.vscode/extensions.json
+
+# Resharper
+_ReSharper*
+*.ReSharper
+_ReSharper*/
+
+# dotCover
+*.dotCover
+
+# MonoDevelop
+*.userprefs
+
+# Razor pages
+#if you want to keep generated files, remove these
+wwwroot/lib/
+
+# Rider
+.idea/
+
+# End of file
