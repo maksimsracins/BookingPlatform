@@ -1,111 +1,89 @@
-# Visual Studio / .NET Core
-.vs/
+# Root-level .gitignore for BookingPlatform solution
+
+# ----- Build outputs -----
 bin/
 obj/
-*.user
-*.suo
-*.userosscache
-*.sln.docstates
+**/bin/
+**/obj/
+publish/
 
-# Build results
+# ----- Generated assemblies / symbols -----
 *.dll
 *.exe
+*.pdb
+*.mdb
 *.appx
 *.msi
 *.nupkg
 
-# Package directories
+# ----- NuGet / packages -----
 packages/
 artifacts/
-
-# NuGet
-*.nupkg
 project.lock.json
 project.fragment.lock.json
 
-# Rider
+# ----- IDE / editor -----
+.vs/
+.vscode/
 .idea/
+*.suo
+*.user
+*.userosscache
+*.sln.iml
+*.userprefs
+*.local
+
+# Rider / JetBrains
+/.idea/
 *.sln.iml
 
-# VS Code
-.vscode/
-
-# ASP.NET Scaffolding
+# ----- ASP.NET / scaffolding -----
 ScaffoldingReadMe.txt
 
-# Entity Framework
+# ----- Entity Framework -----
 *.dbmdl
 
-# Test results
+# ----- Test results -----
 TestResults/
 *.trx
 *.coverage
 *.coveragexml
 
-# NCrunch
-*.ncrunch*
-_nCrunch_*
-
-# Build instrumentation
-*.log
-
-# User-specific files
-*.userprefs
-*.local
-
-# Mac
-.DS_Store
-
-# Logs
+# ----- Logs, caches, and coverage -----
 logs/
 *.log
+.cache/
+coverage/
 
-# Database files
+# ----- Temporary files -----
+*.tmp
+*.temp
+*_ReSharper*/
+*.ReSharper
+*.ncrunch*
+_nCrunch_*/
+
+# ----- OS -----
+.DS_Store
+
+# ----- Database files -----
 *.mdf
 *.ldf
 
-# Publish folders
-publish/
-
-# Secret / local configuration files
+# ----- Local / secret configuration -----
 **/appsettings.Development.json
 **/appsettings.Local.json
 secrets.json
 
-# JetBrains Rider
-.idea/
-*.sln.iml
+# ----- Generated build artifacts -----
+**/obj/**/AssemblyInfo.*
+**/obj/**
 
-# Rider and VS cache
-.cache/
-
-# Coverage
-coverage/
-
-# Temporary files
-*.tmp
-*.temp
-
-# Ignore Visual Studio Code workspace storage
+# ----- VS Code workspace settings keep list -----
 .vscode/*
 !.vscode/extensions.json
 
-# Resharper
-_ReSharper*
-*.ReSharper
-_ReSharper*/
-
-# dotCover
-*.dotCover
-
-# MonoDevelop
-*.userprefs
-
-# Razor pages
-#if you want to keep generated files, remove these
+# ----- Ignored generated files -----
 wwwroot/lib/
 
-# Rider
-.idea/
-
-# End of file
+# End
