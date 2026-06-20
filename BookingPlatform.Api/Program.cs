@@ -1,21 +1,10 @@
-using BookingPlatform.Application.Common.Abstractions.Persistance;
-using BookingPlatform.Infrastructure.Persistence;
-using BookingPlatform.Infrastructure.Persistence.Context;
-using Microsoft.EntityFrameworkCore;
-
 var builder = WebApplication.CreateBuilder(args);
 
-// Services
 builder.Services.AddEndpointsApiExplorer();
-// builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<BookingDbContext>(options =>
-{
-    options.UseNpgsql(
-        builder.Configuration.GetConnectionString("Default"));
-});
-
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services
+    .AddApplication()
+    .AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
