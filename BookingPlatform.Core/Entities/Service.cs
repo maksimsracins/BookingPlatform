@@ -22,6 +22,7 @@ public class Service
     public Guid Id { get; private set; }
 
     public Guid BusinessId { get; private set; }
+    public Business Business { get; private set; } = null!;
 
     public string Name { get; private set; } = string.Empty;
 

@@ -34,6 +34,9 @@ public class Business
     public ICollection<Service> Services { get; private set; } = [];
 
     public ICollection<Employee> Employees { get; private set; } = [];
+    public ICollection<Client> Clients { get; } = [];
+
+    public ICollection<Appointment> Appointments { get; } = [];
 
     public void ChangePhone(string newPhone)
     {
