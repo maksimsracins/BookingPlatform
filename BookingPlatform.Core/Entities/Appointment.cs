@@ -23,12 +23,16 @@ public class Appointment
     public Guid Id { get; private set; }
 
     public Guid BusinessId { get; private set; }
+    public Business Business { get; private set; } = null!;
 
     public Guid ClientId { get; private set; }
+    public Client Client { get; private set; } = null!;
 
     public Guid EmployeeId { get; private set; }
+    public Employee Employee { get; private set; } = null!;
 
     public Guid ServiceId { get; private set; }
+    public Service Service { get; private set; } = null!;
     public decimal Price { get; private set; }
     public TimeSpan Duration { get; private set; }
 

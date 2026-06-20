@@ -15,9 +15,8 @@ public class Client
     }
 
     public Guid Id { get; private set; }
-
     public Guid BusinessId { get; private set; }
-
+    public Business Business { get; private set; } = null!;
     public string FullName { get; private set; } = string.Empty;
     public string TelegramUserName { get; private set; } = string.Empty;
     public string Notes { get; private set; } = string.Empty;

@@ -4,23 +4,53 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BookingPlatform.Infrastructure.Persistence.Configurations;
 
-public class BusinessConfiguration
-    : IEntityTypeConfiguration<Business>
+public class BusinessConfiguration : IEntityTypeConfiguration<Business>
 {
     public void Configure(EntityTypeBuilder<Business> builder)
     {
-        builder.ToTable("Businesses");
+        builder.ToTable("businesses");
 
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Name)
-            .HasMaxLength(200)
-            .IsRequired();
+            .IsRequired()
+            .HasMaxLength(200);
 
         builder.Property(x => x.Phone)
-            .HasMaxLength(50);
+            .HasMaxLength(30);
 
         builder.Property(x => x.Address)
             .HasMaxLength(300);
+
+        builder.Property(x => x.TimeZone)
+            .HasMaxLength(100);
+
+        builder.Property(x => x.IsActive)
+            .IsRequired();
+
+        builder.Property(x => x.CreatedAt)
+            .IsRequired();
+
+        builder.Property(x => x.UpdatedAt);
+
+        builder.HasMany(x => x.Services)
+            .WithOne(x => x.Business)
+            .HasForeignKey(x => x.BusinessId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(x => x.Employees)
+            .WithOne(x => x.Business)
+            .HasForeignKey(x => x.BusinessId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(x => x.Clients)
+            .WithOne(x => x.Business)
+            .HasForeignKey(x => x.BusinessId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(x => x.Appointments)
+            .WithOne(x => x.Business)
+            .HasForeignKey(x => x.BusinessId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
