@@ -1,5 +1,6 @@
 using BookingPlatform.Core.Entities;
-using BookingPlatform.Core.Interfaces.Repositories;
+
+namespace BookingPlatform.Application.Interfaces.Repositories;
 
 public interface IAppointmentRepository : IRepository<Appointment>
 {

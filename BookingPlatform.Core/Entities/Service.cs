@@ -2,17 +2,33 @@ namespace BookingPlatform.Core.Entities;
 
 public class Service
 {
-    public Guid Id { get; set; }
 
-    public Guid BusinessId { get; set; }
+    public Service()
+    {
+        
+    }
 
-    public string Name { get; set; } = string.Empty;
+    public Service(Guid businessId, string name, string description, decimal price, TimeSpan duration)
+    {
+        Id = Guid.NewGuid();
+        BusinessId = businessId;
+        Name = name;
+        Description = description;
+        Price = price;
+        Duration = duration;
+    }
 
-    public string Description { get; set; } = string.Empty;
+    public Guid Id { get; private set; }
 
-    public decimal Price { get; set; }
+    public Guid BusinessId { get; private set; }
 
-    public TimeSpan Duration { get; set; }
+    public string Name { get; private set; } = string.Empty;
 
-    public bool IsActive { get; set; } = true;
+    public string Description { get; private set; } = string.Empty;
+
+    public decimal Price { get; private set; }
+
+    public TimeSpan Duration { get; private set; }
+
+    public bool IsActive { get; private set; } = true;
 }

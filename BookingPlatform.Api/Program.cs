@@ -1,3 +1,5 @@
+using BookingPlatform.Core.Interfaces.Repositories;
+using BookingPlatform.Infrastructure.Persistence;
 using BookingPlatform.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +14,8 @@ builder.Services.AddDbContext<BookingDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("Default"));
 });
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 

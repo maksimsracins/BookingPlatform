@@ -5,6 +5,7 @@ public class Employee
     public Guid Id { get; set; }
 
     public Guid BusinessId { get; set; }
+    public ICollection<Appointment> Appointments { get; set; } = [];
 
     public string FirstName { get; set; } = string.Empty;
 

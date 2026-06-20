@@ -1,4 +1,4 @@
-namespace BookingPlatform.Core.Interfaces.Repositories;
+namespace BookingPlatform.Application.Interfaces.Repositories;
 
 public interface IRepository<TEntity>
     where TEntity : class

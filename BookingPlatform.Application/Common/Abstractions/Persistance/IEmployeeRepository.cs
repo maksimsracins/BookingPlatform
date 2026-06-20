@@ -1,5 +1,5 @@
 using BookingPlatform.Core.Entities;
-using BookingPlatform.Core.Interfaces.Repositories;
+using BookingPlatform.Application.Interfaces.Repositories;
 
 public interface IEmployeeRepository : IRepository<Employee>
 {

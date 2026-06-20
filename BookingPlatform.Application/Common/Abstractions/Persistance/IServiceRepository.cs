@@ -1,6 +1,6 @@
 using BookingPlatform.Core.Entities;
 
-namespace BookingPlatform.Core.Interfaces.Repositories;
+namespace BookingPlatform.Application.Interfaces.Repositories;
 
 public interface IServiceRepository : IRepository<Service>
 {

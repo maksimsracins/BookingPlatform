@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="../BookingPlatform.Application/BookingPlatform.Application.csproj" />
     <ProjectReference Include="../BookingPlatform.Core/BookingPlatform.Core.csproj" />
   </ItemGroup>
 
