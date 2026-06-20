@@ -2,7 +2,7 @@ namespace BookingPlatform.Core.Entities;
 
 public class Business
 {
-    public Business()
+    private Business()
     {
     }
 
@@ -12,9 +12,10 @@ public class Business
         Name = name;
         Phone = phone;
         Address = address;
-        TelegramBotToken = telegramBotToken;
         TimeZone = timeZone;
         IsActive = true;
+        CreatedAt = DateTime.UtcNow;
+        UpdatedAt = CreatedAt;
     }
 
     public Guid Id { get; private set; }
@@ -25,12 +26,11 @@ public class Business
 
     public string Address { get; private set; } = string.Empty;
 
-    public string TelegramBotToken { get; private set; } = string.Empty;
-
     public string TimeZone { get; private set; } = "Europe/Riga";
     public bool IsActive { get; private set; }
+    public DateTime CreatedAt { get; private set; }
+    public DateTime UpdatedAt { get; private set; }
 
-    public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
     public ICollection<Service> Services { get; private set; } = [];
 
     public ICollection<Employee> Employees { get; private set; } = [];
@@ -39,9 +39,18 @@ public class Business
     {
         Phone = newPhone;
     }
+    public void ChangeAddress(string newAddress)
+    {
+        Address = newAddress;
+    }
 
     public void Activate()
     {
         IsActive = true;
+    }
+
+    public void Deactivate()
+    {
+        IsActive = false;
     }
 }

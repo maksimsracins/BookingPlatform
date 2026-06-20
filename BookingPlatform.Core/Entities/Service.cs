@@ -3,7 +3,7 @@ namespace BookingPlatform.Core.Entities;
 public class Service
 {
 
-    public Service()
+    private Service()
     {
         
     }
@@ -16,6 +16,7 @@ public class Service
         Description = description;
         Price = price;
         Duration = duration;
+        IsActive = true;
     }
 
     public Guid Id { get; private set; }
@@ -31,4 +32,30 @@ public class Service
     public TimeSpan Duration { get; private set; }
 
     public bool IsActive { get; private set; } = true;
+
+    public void ChangePrice(decimal price)
+    {
+        if (price < 0)
+            throw new ArgumentException("Price cannot be negative.", nameof(price)); 
+        
+        Price = price;
+    }
+    public void ChangeDuration(TimeSpan duration)
+    {
+        if (duration <= TimeSpan.Zero)
+            throw new ArgumentException("Duration must be greater than zero.", nameof(duration));
+
+        Duration = duration;
+    }
+    public void Rename(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentException("Name cannot be empty.", nameof(name));
+
+        Name = name;
+    }
+    public void Deactivate()
+    {
+        IsActive = false;
+    }
 }

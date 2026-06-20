@@ -2,13 +2,34 @@ namespace BookingPlatform.Core.Entities;
 
 public class Client
 {
-    public Guid Id { get; set; }
+    private Client() { }
+    public Client(Guid businessId, string fullName, string phone, string telegramUserName, string notes, long telegramUserId)
+    {
+        Id = Guid.NewGuid();
+        BusinessId = businessId;
+        FullName = fullName;
+        Phone = phone;
+        TelegramUserName = telegramUserName;
+        Notes = notes;
+        TelegramUserId = telegramUserId;
+    }
 
-    public Guid BusinessId { get; set; }
+    public Guid Id { get; private set; }
 
-    public string FullName { get; set; } = string.Empty;
+    public Guid BusinessId { get; private set; }
 
-    public string Phone { get; set; } = string.Empty;
+    public string FullName { get; private set; } = string.Empty;
+    public string TelegramUserName { get; private set; } = string.Empty;
+    public string Notes { get; private set; } = string.Empty;
+    public string Phone { get; private set; } = string.Empty;
 
-    public long TelegramUserId { get; set; }
+    public long TelegramUserId { get; private set; }
+
+    public ICollection<Appointment> Appointments { get; private set; } = [];
+
+    public void ChangePhone(string phone)
+    {
+        Phone = phone;
+    }
+
 }

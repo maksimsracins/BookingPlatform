@@ -5,17 +5,20 @@ namespace BookingPlatform.Core.Entities;
 public class Appointment
 {
     // For EF Core
-    public Appointment() { }
-    public Appointment(Guid businessId, Guid clientId, Guid employeeId, Guid serviceId, DateTime startAt, DateTime endAt)
+    private Appointment() { }
+    public Appointment(Guid businessId, Guid clientId, Guid employeeId, Guid serviceId, decimal price, DateTime startAt, DateTime endAt)
     {
         Id = Guid.NewGuid();
         BusinessId = businessId;
         ClientId = clientId;
         EmployeeId = employeeId;
         ServiceId = serviceId;
+        Price = price;
         StartAt = startAt;
         EndAt = endAt;
         Status = AppointmentStatus.Pending;
+        CreatedAt = DateTime.UtcNow;
+        UpdatedAt = CreatedAt;
     }
     public Guid Id { get; private set; }
 
@@ -26,12 +29,17 @@ public class Appointment
     public Guid EmployeeId { get; private set; }
 
     public Guid ServiceId { get; private set; }
+    public decimal Price { get; private set; }
+    public TimeSpan Duration { get; private set; }
 
     public DateTime StartAt { get; private set; }
 
     public DateTime EndAt { get; private set; }
 
     public AppointmentStatus Status { get; private set; }
+    public string Comment { get; private set; } = string.Empty;
+    public DateTime CreatedAt { get; private set; }
+    public DateTime UpdatedAt { get; private set; }
 
     public void Confirm()
     {
@@ -55,5 +63,13 @@ public class Appointment
             throw new InvalidOperationException();
 
         Status = AppointmentStatus.Completed;
+    }
+    public void Reschedule(DateTime startAt, DateTime endAt)
+    {
+        if (Status == AppointmentStatus.Completed)
+            throw new InvalidOperationException();
+
+        StartAt = startAt;
+        EndAt = endAt;
     }
 }

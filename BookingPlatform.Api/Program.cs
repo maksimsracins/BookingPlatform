@@ -1,4 +1,4 @@
-using BookingPlatform.Core.Interfaces.Repositories;
+using BookingPlatform.Application.Common.Abstractions.Persistance;
 using BookingPlatform.Infrastructure.Persistence;
 using BookingPlatform.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;

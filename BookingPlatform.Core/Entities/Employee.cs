@@ -2,16 +2,41 @@ namespace BookingPlatform.Core.Entities;
 
 public class Employee
 {
-    public Guid Id { get; set; }
+    private Employee()
+    {
+        
+    }
 
-    public Guid BusinessId { get; set; }
-    public ICollection<Appointment> Appointments { get; set; } = [];
+    public Employee(Guid businessId, string fullName, string phone, string color)
+    {
+        Id = Guid.NewGuid();
+        BusinessId = businessId;
+        FullName = fullName;
+        Phone = phone;
+        Color = color;
+        IsActive = true;
+    }
+    public Guid Id { get; private set; }
 
-    public string FirstName { get; set; } = string.Empty;
+    public Guid BusinessId { get; private set; }
 
-    public string LastName { get; set; } = string.Empty;
+    public string FullName { get; private set; } = string.Empty;
 
-    public string Phone { get; set; } = string.Empty;
 
-    public bool IsActive { get; set; } = true;
+    public string Phone { get; private set; } = string.Empty;
+
+    public bool IsActive { get; private set; } = true;
+    public string Color { get; private set; } = string.Empty;
+    public ICollection<Appointment> Appointments { get; private set; } = [];
+
+    public void ChangePhone(string phone)
+    {
+        Phone = phone;
+    }
+
+    public void Deactivate()
+    {
+        IsActive = false;
+    }
+    
 }

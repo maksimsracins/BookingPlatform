@@ -1,4 +1,4 @@
-using BookingPlatform.Application.Interfaces.Repositories;
+using BookingPlatform.Application.Common.Abstractions.Persistance;
 using BookingPlatform.Infrastructure.Persistence.Context;
 
 namespace BookingPlatform.Infrastructure.Persistence;

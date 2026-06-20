@@ -3,7 +3,7 @@ using BookingPlatform.Core.Entities;
 using BookingPlatform.Infrastructure.Persistence.Context;
 using BookingPlatform.Infrastructure.Repositories;
 
-namespace BookingPlatform.Infrastructure.Repositories;s
+namespace BookingPlatform.Infrastructure.Repositories;
 
 public class AppointmentRepository
     : Repository<Appointment>,
