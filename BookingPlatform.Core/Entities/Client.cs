@@ -3,14 +3,13 @@ namespace BookingPlatform.Core.Entities;
 public class Client
 {
     private Client() { }
-    public Client(Guid businessId, string fullName, string phone, string telegramUserName, string notes, long telegramUserId)
+    public Client(Guid id, Guid businessId, string fullName, string telegramUserName, string phone, long telegramUserId)
     {
-        Id = Guid.NewGuid();
+        Id = id;
         BusinessId = businessId;
         FullName = fullName;
-        Phone = phone;
         TelegramUserName = telegramUserName;
-        Notes = notes;
+        Phone = phone;
         TelegramUserId = telegramUserId;
     }
 

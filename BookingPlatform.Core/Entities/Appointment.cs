@@ -6,14 +6,15 @@ public class Appointment
 {
     // For EF Core
     private Appointment() { }
-    public Appointment(Guid businessId, Guid clientId, Guid employeeId, Guid serviceId, decimal price, DateTime startAt, DateTime endAt)
+    public Appointment(Guid id, Guid businessId, Guid clientId, Guid employeeId, Guid serviceId, decimal price, TimeSpan duration, DateTime startAt, DateTime endAt)
     {
-        Id = Guid.NewGuid();
+        Id = id;
         BusinessId = businessId;
         ClientId = clientId;
         EmployeeId = employeeId;
         ServiceId = serviceId;
         Price = price;
+        Duration = duration;
         StartAt = startAt;
         EndAt = endAt;
         Status = AppointmentStatus.Pending;
