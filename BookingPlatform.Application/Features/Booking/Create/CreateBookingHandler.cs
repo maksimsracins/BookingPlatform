@@ -1,4 +1,5 @@
 using BookingPlatform.Application.Common.Abstractions.Persistance;
+using BookingPlatform.Application.Common.Exceptions;
 using BookingPlatform.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -55,7 +56,7 @@ public sealed class CreateBookingHandler(IBookingDbContext context)
     {
         return await _context.Businesses
             .FirstOrDefaultAsync(x => x.Id == businessId, cancellationToken)
-            ?? throw new InvalidOperationException("Business not found.");
+            ?? throw new BusinessNotFoundException(businessId);
     }
 
     private async Task<Service> GetServiceAsync(
@@ -69,7 +70,7 @@ public sealed class CreateBookingHandler(IBookingDbContext context)
                     x.BusinessId == businessId &&
                     x.IsActive,
                 cancellationToken)
-            ?? throw new InvalidOperationException("Service not found.");
+            ?? throw new ServiceNotFoundException(serviceId);
     }
 
     private async Task<Employee> GetEmployeeAsync(
@@ -83,7 +84,7 @@ public sealed class CreateBookingHandler(IBookingDbContext context)
                     x.BusinessId == businessId &&
                     x.IsActive,
                 cancellationToken)
-            ?? throw new InvalidOperationException("Employee not found.");
+            ?? throw new EmployeeNotFoundException(employeeId);
     }
 
     private async Task<Client> GetClientAsync(
@@ -96,7 +97,7 @@ public sealed class CreateBookingHandler(IBookingDbContext context)
                     x.Id == clientId &&
                     x.BusinessId == businessId,
                 cancellationToken)
-            ?? throw new InvalidOperationException("Client not found.");
+            ?? throw new ClientNotFoundException(clientId);
     }
 
     private async Task EnsureEmployeeIsAvailable(
@@ -114,7 +115,7 @@ public sealed class CreateBookingHandler(IBookingDbContext context)
             cancellationToken);
 
         if (exists)
-            throw new InvalidOperationException("Employee is busy.");
+            throw new EmployeeBusyException(employeeId);
     }
 
     private static Appointment CreateAppointment(
