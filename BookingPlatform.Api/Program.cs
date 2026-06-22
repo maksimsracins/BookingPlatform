@@ -1,30 +1,28 @@
-using BookingPlatform.Api.Endpoints.Booking;
-using BookingPlatform.Api.Exceptions;
+using BookingPlatform.Api;
+using BookingPlatform.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddEndpointsApiExplorer();
 
 builder.Services
     .AddApplication()
     .AddInfrastructure(builder.Configuration);
 
-builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 builder.Services.AddProblemDetails();
-    
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
 var app = builder.Build();
 
-// Pipeline
-if (app.Environment.IsDevelopment())
-{
-    // app.UseSwagger();
-    // app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
 app.UseExceptionHandler();
 
-app.MapBookingEndpoints();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.MapEndpoints();
 
 app.Run();

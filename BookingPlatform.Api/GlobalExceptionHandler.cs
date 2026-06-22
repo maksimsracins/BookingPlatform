@@ -2,8 +2,7 @@
 using BookingPlatform.Application.Common.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 
-namespace BookingPlatform.Api.Exceptions;
-
+namespace BookingPlatform.Api;
 public sealed class GlobalExceptionHandler : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(

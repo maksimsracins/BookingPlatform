@@ -8,13 +8,18 @@ public class BookingDbContext
     : DbContext,
       IBookingDbContext
 {
-    public DbSet<Business> Businesses => throw new NotImplementedException();
+    public BookingDbContext(DbContextOptions<BookingDbContext> options)
+        : base(options)
+    {
+    }
 
-    public DbSet<Service> Services => throw new NotImplementedException();
+    public DbSet<Business> Businesses { get; set; } = null!;
 
-    public DbSet<Employee> Employees => throw new NotImplementedException();
+    public DbSet<Service> Services { get; set; } = null!;
 
-    public DbSet<Client> Clients => throw new NotImplementedException();
+    public DbSet<Employee> Employees { get; set; } = null!;
 
-    public DbSet<Appointment> Appointments => throw new NotImplementedException();
+    public DbSet<Client> Clients { get; set; } = null!;
+
+    public DbSet<Appointment> Appointments { get; set; } = null!;
 }
