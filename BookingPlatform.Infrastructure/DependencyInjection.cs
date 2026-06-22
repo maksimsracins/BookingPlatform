@@ -13,7 +13,7 @@ public static class DependencyInjection
         IConfiguration configuration)
     {
         var connectionString =
-            configuration.GetConnectionString("DefaultConnection")
+            configuration.GetConnectionString("Default")
             ?? throw new InvalidOperationException(
                 "Connection string 'DefaultConnection' not found.");
 
