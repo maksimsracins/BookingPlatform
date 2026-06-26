@@ -1,8 +1,6 @@
-using System.Net.Http;
 using BookingPlatform.Infrastructure.Persistence.Context;
+using BookingPlatform.IntegrationTests.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
-
-namespace BookingPlatform.IntegrationTests.Infrastructure;
 
 public abstract class IntegrationTest
     : IClassFixture<PostgreSqlFixture>
@@ -10,6 +8,8 @@ public abstract class IntegrationTest
     protected readonly HttpClient Client;
 
     protected readonly BookingDbContext Context;
+
+    protected readonly TestData TestData;
 
     protected IntegrationTest(PostgreSqlFixture fixture)
     {
@@ -22,5 +22,7 @@ public abstract class IntegrationTest
             .CreateScope()
             .ServiceProvider
             .GetRequiredService<BookingDbContext>();
+
+        TestData = new TestData(Context);
     }
 }

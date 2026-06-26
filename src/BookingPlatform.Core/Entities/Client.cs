@@ -3,7 +3,7 @@ namespace BookingPlatform.Core.Entities;
 public class Client
 {
     private Client() { }
-    public Client(Guid id, Guid businessId, string fullName, string telegramUserName, string phone, long telegramUserId)
+    public Client(Guid id, Guid businessId, string fullName, string telegramUserName, string phone, long telegramUserId, string notes = "")
     {
         Id = id;
         BusinessId = businessId;
@@ -11,6 +11,7 @@ public class Client
         TelegramUserName = telegramUserName;
         Phone = phone;
         TelegramUserId = telegramUserId;
+        Notes = notes;
     }
 
     public Guid Id { get; private set; }

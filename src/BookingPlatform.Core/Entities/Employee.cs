@@ -7,9 +7,9 @@ public class Employee
         
     }
 
-    public Employee(Guid businessId, string fullName, string phone, string color)
+    public Employee(Guid id, Guid businessId, string fullName, string phone, string color)
     {
-        Id = Guid.NewGuid();
+        Id = id;
         BusinessId = businessId;
         FullName = fullName;
         Phone = phone;
