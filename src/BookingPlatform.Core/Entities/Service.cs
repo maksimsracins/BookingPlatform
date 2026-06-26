@@ -8,9 +8,9 @@ public class Service
         
     }
 
-    public Service(Guid businessId, string name, string description, decimal price, TimeSpan duration)
+    public Service(Guid id, Guid businessId, string name, string description, decimal price, TimeSpan duration)
     {
-        Id = Guid.NewGuid();
+        Id = id;
         BusinessId = businessId;
         Name = name;
         Description = description;
