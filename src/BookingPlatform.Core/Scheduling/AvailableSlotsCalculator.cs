@@ -4,22 +4,23 @@ namespace BookingPlatform.Application.Common.Scheduling;
 
 public sealed class AvailableSlotsCalculator
 {
-    public static IReadOnlyCollection<AvailableSlot> Calculate(
+    public IReadOnlyCollection<AvailableSlot> Calculate(
     TimeOnly workStart,
     TimeOnly workEnd,
-    TimeSpan duration,
+    TimeSpan serviceDuration,
+    TimeSpan slotInterval,
     IReadOnlyCollection<Appointment> appointments,
     DateOnly date)
 {
-    var result = new List<AvailableSlot>();
+    var slots = new List<AvailableSlot>();
 
     var current = date.ToDateTime(workStart);
 
-    var workEndDateTime = date.ToDateTime(workEnd);
+    var endOfWorkingDay = date.ToDateTime(workEnd);
 
-    while (current.Add(duration) <= workEndDateTime)
+    while (current.Add(serviceDuration) <= endOfWorkingDay)
     {
-        var slotEnd = current.Add(duration);
+        var slotEnd = current.Add(serviceDuration);
 
         var isBusy = appointments.Any(x =>
             x.StartAt < slotEnd &&
@@ -27,14 +28,14 @@ public sealed class AvailableSlotsCalculator
 
         if (!isBusy)
         {
-            result.Add(new AvailableSlot(
+            slots.Add(new AvailableSlot(
                 current,
                 slotEnd));
         }
 
-        current = current.Add(duration);
+        current = current.Add(slotInterval);
     }
 
-    return result;
+    return slots;
 }
 }

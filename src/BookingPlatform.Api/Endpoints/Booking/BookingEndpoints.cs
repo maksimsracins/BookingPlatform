@@ -1,4 +1,5 @@
 using BookingPlatform.Application.Features.Booking.Create;
+using BookingPlatform.Application.Features.Booking.GetAvailableSlots;
 using FluentValidation;
 
 namespace BookingPlatform.Api.Endpoints.Booking;
@@ -9,6 +10,7 @@ public static class BookingEndpoints
         this IEndpointRouteBuilder app)
     {
         app.MapPost("/api/bookings", CreateBooking);
+        app.MapPost("/available-slots", GetAvailableSlots);
 
         return app;
     }
@@ -31,5 +33,17 @@ public static class BookingEndpoints
         return Results.Created(
             $"/api/bookings/{result.Id}",
             result);
+    }
+
+     private static async Task<IResult> GetAvailableSlots(
+        [AsParameters] GetAvailableSlotsQuery query, 
+        GetAvailableSlotsHandler handler, 
+        CancellationToken cancellationToken)
+    {
+        var result = await handler.Handle(
+            query,
+            cancellationToken);
+
+        return Results.Ok(result);
     }
 }

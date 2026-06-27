@@ -23,5 +23,5 @@ public class BookingDbContext
 
     public DbSet<Appointment> Appointments { get; set; } = null!;
 
-    public DbSet<EmployeeWorkingHours> EmployeeWorkingHours => Set<EmployeeWorkingHours>();
+    public DbSet<EmployeeWorkingHours> EmployeeWorkingHours { get; set; } = null!;
 }
