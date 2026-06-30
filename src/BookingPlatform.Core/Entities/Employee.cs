@@ -29,6 +29,7 @@ public class Employee
     public bool IsActive { get; private set; } = true;
     public string Color { get; private set; } = string.Empty;
     public ICollection<Appointment> Appointments { get; private set; } = [];
+    public ICollection<EmployeeWorkingHours> WorkingHours { get; private set; } = [];
 
     public void ChangePhone(string phone)
     {

@@ -35,7 +35,11 @@ public sealed class CreateBookingTests : IntegrationTest
 
         response.StatusCode.Should().Be(HttpStatusCode.Created);
 
-        var appointment = await Context.Appointments.SingleAsync();
+        var appointment = await Context.Appointments.SingleAsync(x =>
+            x.BusinessId == data.Business.Id &&
+            x.ClientId == data.Client.Id &&
+            x.EmployeeId == data.Employee.Id &&
+            x.ServiceId == data.Service.Id);
 
         appointment.BusinessId.Should().Be(data.Business.Id);
         appointment.ClientId.Should().Be(data.Client.Id);

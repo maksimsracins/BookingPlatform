@@ -15,6 +15,8 @@ public interface IBookingDbContext
 
     DbSet<Appointment> Appointments { get; }
 
+    DbSet<EmployeeWorkingHours> EmployeeWorkingHours { get; }
+
     Task<int> SaveChangesAsync(
         CancellationToken cancellationToken = default);
 }

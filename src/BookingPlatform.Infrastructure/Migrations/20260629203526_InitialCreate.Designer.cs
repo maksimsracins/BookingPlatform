@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookingPlatform.Infrastructure.Migrations
 {
     [DbContext(typeof(BookingDbContext))]
-    [Migration("20260622192519_InitialCreate")]
+    [Migration("20260629203526_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -39,7 +39,8 @@ namespace BookingPlatform.Infrastructure.Migrations
 
                     b.Property<string>("Comment")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -54,7 +55,8 @@ namespace BookingPlatform.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("numeric(10,2)");
 
                     b.Property<Guid>("ServiceId")
                         .HasColumnType("uuid");
@@ -70,15 +72,17 @@ namespace BookingPlatform.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BusinessId");
-
                     b.HasIndex("ClientId");
-
-                    b.HasIndex("EmployeeId");
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("Appointments");
+                    b.HasIndex("BusinessId", "StartAt");
+
+                    b.HasIndex("EmployeeId", "StartAt");
+
+                    b.HasIndex("EmployeeId", "StartAt", "EndAt");
+
+                    b.ToTable("appointments", (string)null);
                 });
 
             modelBuilder.Entity("BookingPlatform.Core.Entities.Business", b =>
@@ -89,7 +93,8 @@ namespace BookingPlatform.Infrastructure.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -99,22 +104,28 @@ namespace BookingPlatform.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<TimeSpan>("SlotInterval")
+                        .HasColumnType("interval");
 
                     b.Property<string>("TimeZone")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Businesses");
+                    b.ToTable("businesses", (string)null);
                 });
 
             modelBuilder.Entity("BookingPlatform.Core.Entities.Client", b =>
@@ -128,28 +139,33 @@ namespace BookingPlatform.Infrastructure.Migrations
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Notes")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
 
                     b.Property<long>("TelegramUserId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("TelegramUserName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BusinessId");
+                    b.HasIndex("BusinessId", "TelegramUserId")
+                        .IsUnique();
 
-                    b.ToTable("Clients");
+                    b.ToTable("clients", (string)null);
                 });
 
             modelBuilder.Entity("BookingPlatform.Core.Entities.Employee", b =>
@@ -163,24 +179,53 @@ namespace BookingPlatform.Infrastructure.Migrations
 
                     b.Property<string>("Color")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BusinessId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("employees", (string)null);
+                });
+
+            modelBuilder.Entity("BookingPlatform.Core.Entities.EmployeeWorkingHours", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("DayOfWeek")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<TimeOnly>("EndTime")
+                        .HasColumnType("time without time zone");
+
+                    b.Property<TimeOnly>("StartTime")
+                        .HasColumnType("time without time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId", "DayOfWeek")
+                        .IsUnique();
+
+                    b.ToTable("employee_working_hours", (string)null);
                 });
 
             modelBuilder.Entity("BookingPlatform.Core.Entities.Service", b =>
@@ -194,7 +239,8 @@ namespace BookingPlatform.Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
 
                     b.Property<TimeSpan>("Duration")
                         .HasColumnType("interval");
@@ -204,16 +250,18 @@ namespace BookingPlatform.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("numeric(10,2)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BusinessId");
 
-                    b.ToTable("Services");
+                    b.ToTable("services", (string)null);
                 });
 
             modelBuilder.Entity("BookingPlatform.Core.Entities.Appointment", b =>
@@ -227,19 +275,19 @@ namespace BookingPlatform.Infrastructure.Migrations
                     b.HasOne("BookingPlatform.Core.Entities.Client", "Client")
                         .WithMany("Appointments")
                         .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("BookingPlatform.Core.Entities.Employee", "Employee")
                         .WithMany("Appointments")
                         .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("BookingPlatform.Core.Entities.Service", "Service")
                         .WithMany()
                         .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Business");
@@ -273,6 +321,17 @@ namespace BookingPlatform.Infrastructure.Migrations
                     b.Navigation("Business");
                 });
 
+            modelBuilder.Entity("BookingPlatform.Core.Entities.EmployeeWorkingHours", b =>
+                {
+                    b.HasOne("BookingPlatform.Core.Entities.Employee", "Employee")
+                        .WithMany("WorkingHours")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
             modelBuilder.Entity("BookingPlatform.Core.Entities.Service", b =>
                 {
                     b.HasOne("BookingPlatform.Core.Entities.Business", "Business")
@@ -303,6 +362,8 @@ namespace BookingPlatform.Infrastructure.Migrations
             modelBuilder.Entity("BookingPlatform.Core.Entities.Employee", b =>
                 {
                     b.Navigation("Appointments");
+
+                    b.Navigation("WorkingHours");
                 });
 #pragma warning restore 612, 618
         }

@@ -21,7 +21,17 @@ public class AppointmentConfiguration : IEntityTypeConfiguration<Appointment>
         builder.Property(x => x.Status)
             .HasConversion<int>();
 
-        builder.Property(x => x.CreatedAt);
+        builder.Property(x => x.CreatedAt)
+            .HasColumnType("timestamp with time zone");
+
+        builder.Property(x => x.StartAt)
+            .HasColumnType("timestamp with time zone");
+
+        builder.Property(x => x.EndAt)
+            .HasColumnType("timestamp with time zone");
+        
+        builder.Property(x => x.UpdatedAt)
+            .HasColumnType("timestamp with time zone");
 
         builder.HasOne(x => x.Business)
             .WithMany(x => x.Appointments)

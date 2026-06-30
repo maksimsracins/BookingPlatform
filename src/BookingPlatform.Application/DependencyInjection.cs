@@ -1,4 +1,5 @@
 using BookingPlatform.Application.Features.Booking.Create;
+using BookingPlatform.Application.Features.Booking.GetAvailableSlots;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +11,8 @@ public static class DependencyInjection
         this IServiceCollection services)
     {
         services.AddScoped<CreateBookingHandler>();
+        services.AddScoped<GetAvailableSlotsHandler>();
+        
         services.AddValidatorsFromAssemblyContaining<CreateBookingValidator>();
 
         return services;

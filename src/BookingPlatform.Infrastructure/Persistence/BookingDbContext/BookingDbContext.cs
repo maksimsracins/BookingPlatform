@@ -13,6 +13,12 @@ public class BookingDbContext
     {
     }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(BookingDbContext).Assembly);
+    }
+
     public DbSet<Business> Businesses { get; set; } = null!;
 
     public DbSet<Service> Services { get; set; } = null!;
@@ -22,4 +28,6 @@ public class BookingDbContext
     public DbSet<Client> Clients { get; set; } = null!;
 
     public DbSet<Appointment> Appointments { get; set; } = null!;
+
+    public DbSet<EmployeeWorkingHours> EmployeeWorkingHours { get; set; } = null!;
 }

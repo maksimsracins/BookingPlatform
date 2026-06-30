@@ -6,7 +6,7 @@ public class Business
     {
     }
 
-    public Business(string name, string phone, string address, string telegramBotToken, string timeZone)
+    public Business(string name, string phone, string address, string telegramBotToken, string timeZone, TimeSpan slotInterval)
     {
         Id = Guid.NewGuid();
         Name = name;
@@ -16,6 +16,7 @@ public class Business
         IsActive = true;
         CreatedAt = DateTime.UtcNow;
         UpdatedAt = CreatedAt;
+        SlotInterval = slotInterval;
     }
 
     public Guid Id { get; private set; }
@@ -27,6 +28,7 @@ public class Business
     public string Address { get; private set; } = string.Empty;
 
     public string TimeZone { get; private set; } = "Europe/Riga";
+    public TimeSpan SlotInterval { get; private set; }
     public bool IsActive { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }

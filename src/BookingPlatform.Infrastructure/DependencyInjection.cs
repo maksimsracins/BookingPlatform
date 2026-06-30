@@ -1,4 +1,5 @@
 using BookingPlatform.Application.Common.Abstractions.Persistance;
+using BookingPlatform.Application.Common.Scheduling;
 using BookingPlatform.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +25,8 @@ public static class DependencyInjection
 
         services.AddScoped<IBookingDbContext>(provider =>
             provider.GetRequiredService<BookingDbContext>());
+        
+        services.AddSingleton<AvailableSlotsCalculator>();
 
         return services;
     }
