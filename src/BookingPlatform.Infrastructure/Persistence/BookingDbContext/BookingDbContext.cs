@@ -13,6 +13,12 @@ public class BookingDbContext
     {
     }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(BookingDbContext).Assembly);
+    }
+
     public DbSet<Business> Businesses { get; set; } = null!;
 
     public DbSet<Service> Services { get; set; } = null!;

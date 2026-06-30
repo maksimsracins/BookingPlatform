@@ -10,7 +10,7 @@ public static class BookingEndpoints
         this IEndpointRouteBuilder app)
     {
         app.MapPost("/api/bookings", CreateBooking);
-        app.MapPost("/available-slots", GetAvailableSlots);
+        app.MapGet("/api/bookings/available-slots", GetAvailableSlots);
 
         return app;
     }

@@ -29,9 +29,11 @@ public class BusinessConfiguration : IEntityTypeConfiguration<Business>
             .IsRequired();
 
         builder.Property(x => x.CreatedAt)
-            .IsRequired();
+            .IsRequired()
+            .HasColumnType("timestamp with time zone");
 
-        builder.Property(x => x.UpdatedAt);
+        builder.Property(x => x.UpdatedAt)
+            .HasColumnType("timestamp with time zone");
 
         builder.HasMany(x => x.Services)
             .WithOne(x => x.Business)

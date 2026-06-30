@@ -44,10 +44,14 @@ public sealed class GetAvailableSlotsHandler
         if (workingHours is null)
             return new GetAvailableSlotsResult([]);
 
+        var dateStartUtc = DateTime.SpecifyKind(query.Date.ToDateTime(TimeOnly.MinValue), DateTimeKind.Utc);
+        var dateEndUtc = dateStartUtc.AddDays(1);
+
         var appointments = await _context.Appointments
             .Where(x =>
                 x.EmployeeId == query.EmployeeId &&
-                x.StartAt.Date == query.Date.ToDateTime(TimeOnly.MinValue).Date)
+                x.StartAt >= dateStartUtc &&
+                x.StartAt < dateEndUtc)
             .OrderBy(x => x.StartAt)
             .ToListAsync(cancellationToken);
 

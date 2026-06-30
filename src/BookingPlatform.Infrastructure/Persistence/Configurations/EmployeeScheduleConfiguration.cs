@@ -15,9 +15,11 @@ public sealed class EmployeeWorkingHoursConfiguration
 
         builder.Property(x => x.DayOfWeek);
 
-        builder.Property(x => x.StartTime);
+        builder.Property(x => x.StartTime)
+            .HasColumnType("time without time zone");
 
-        builder.Property(x => x.EndTime);
+        builder.Property(x => x.EndTime)
+            .HasColumnType("time without time zone");
 
         builder.HasOne(x => x.Employee)
             .WithMany(x => x.WorkingHours)

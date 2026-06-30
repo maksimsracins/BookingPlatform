@@ -15,8 +15,8 @@ public class Appointment
         ServiceId = serviceId;
         Price = price;
         Duration = duration;
-        StartAt = startAt;
-        EndAt = endAt;
+        StartAt = NormalizeToUtc(startAt);
+        EndAt = NormalizeToUtc(endAt);
         Status = AppointmentStatus.Pending;
         CreatedAt = DateTime.UtcNow;
         UpdatedAt = CreatedAt;
@@ -74,7 +74,18 @@ public class Appointment
         if (Status == AppointmentStatus.Completed)
             throw new InvalidOperationException();
 
-        StartAt = startAt;
-        EndAt = endAt;
+        StartAt = NormalizeToUtc(startAt);
+        EndAt = NormalizeToUtc(endAt);
+    }
+
+    private static DateTime NormalizeToUtc(DateTime dateTime)
+    {
+        return dateTime.Kind switch
+        {
+            DateTimeKind.Utc => dateTime,
+            DateTimeKind.Local => dateTime.ToUniversalTime(),
+            DateTimeKind.Unspecified => DateTime.SpecifyKind(dateTime, DateTimeKind.Utc),
+            _ => DateTime.SpecifyKind(dateTime, DateTimeKind.Utc)
+        };
     }
 }
