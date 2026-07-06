@@ -1,3 +1,5 @@
+using MediatR;
+
 namespace BookingPlatform.Application.Features.Booking.Create;
 
 public sealed record CreateBookingCommand
@@ -6,4 +8,4 @@ public sealed record CreateBookingCommand
     Guid ServiceId,
     Guid EmployeeId,
     Guid ClientId, 
-    DateTime StartAt);
+    DateTime StartAt) : IRequest<CreateBookingResult>;
