@@ -14,5 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="../BookingPlatform.Application/BookingPlatform.Application.csproj" />
+    <ProjectReference Include="../BookingPlatform.Infrastructure/BookingPlatform.Infrastructure.csproj" />
   </ItemGroup>
 </Project>
