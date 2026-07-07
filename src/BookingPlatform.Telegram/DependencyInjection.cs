@@ -13,25 +13,25 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddTelegram(this IServiceCollection services, IConfiguration configuration)
     {
-        var botToken = configuration.GetValue<string>("Telegram:BotToken");
+        services.AddOptions<TelegramOptions>()
+            .Bind(configuration.GetSection(TelegramOptions.SectionName));
+
+        var botToken = configuration["Telegram:BotToken"]
+            ?? configuration["Telegram__BotToken"]
+            ?? Environment.GetEnvironmentVariable("Telegram__BotToken");
 
         if (string.IsNullOrWhiteSpace(botToken))
         {
-            throw new InvalidOperationException("Telegram BotToken is not configured.");
+            throw new InvalidOperationException(
+                "Telegram BotToken is not configured. Set it in user secrets, environment variable 'Telegram__BotToken', or appsettings.");
         }
 
-        services.AddSingleton<ITelegramBotClient>(provider =>
-        {
-            var options = provider
-                .GetRequiredService<IOptions<TelegramOptions>>()
-                .Value;
-            return new TelegramBotClient(options.BotToken);
-        });
+        services.AddSingleton<ITelegramBotClient>(_ => new TelegramBotClient(botToken));
 
-        services.AddScoped<ITelegramHandler, StartHandler>();
-        services.AddScoped<ITelegramHandler, UnknownHandler>();
+        services.AddSingleton<ITelegramHandler, StartHandler>();
+        services.AddSingleton<ITelegramHandler, UnknownHandler>();
 
-        services.AddScoped<TelegramRouter>();
+        services.AddSingleton<TelegramRouter>();
 
         return services;
     }
