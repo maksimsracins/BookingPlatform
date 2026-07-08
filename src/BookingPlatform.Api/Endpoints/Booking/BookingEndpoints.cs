@@ -1,6 +1,8 @@
 using BookingPlatform.Application.Features.Booking.Create;
 using BookingPlatform.Application.Features.Booking.GetAvailableSlots;
+using BookingPlatform.Application.Features.Business.GetBusinesses;
 using FluentValidation;
+using MediatR;
 
 namespace BookingPlatform.Api.Endpoints.Booking;
 
@@ -11,24 +13,18 @@ public static class BookingEndpoints
     {
         app.MapPost("/api/bookings", CreateBooking);
         app.MapGet("/api/bookings/available-slots", GetAvailableSlots);
+        app.MapGet("/api/businesses", GetBusinesses);
 
         return app;
     }
 
     private static async Task<IResult> CreateBooking(
         CreateBookingCommand command,
-        CreateBookingHandler handler,
+        IMediator mediator,
         IValidator<CreateBookingCommand> validator,
         CancellationToken cancellationToken)
     {
-        var validationResult = await validator.ValidateAsync(command, cancellationToken);
-
-        if (!validationResult.IsValid)
-        {
-            return Results.ValidationProblem(validationResult.ToDictionary());
-        }
-
-        var result = await handler.Handle(command, cancellationToken);
+        var result = await mediator.Send(command, cancellationToken);
 
         return Results.Created(
             $"/api/bookings/{result.Id}",
@@ -37,12 +33,19 @@ public static class BookingEndpoints
 
      private static async Task<IResult> GetAvailableSlots(
         [AsParameters] GetAvailableSlotsQuery query, 
-        GetAvailableSlotsHandler handler, 
+        IMediator mediator,
         CancellationToken cancellationToken)
     {
-        var result = await handler.Handle(
+        var result = await mediator.Send(
             query,
             cancellationToken);
+
+        return Results.Ok(result);
+    }
+
+    private static async Task<IResult> GetBusinesses(IMediator mediator, CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(new GetBusinessesQuery(), cancellationToken);
 
         return Results.Ok(result);
     }

@@ -1,5 +1,7 @@
+using MediatR;
+
 namespace BookingPlatform.Application.Features.Booking.GetAvailableSlots;
-public sealed class GetAvailableSlotsQuery
+public sealed class GetAvailableSlotsQuery : IRequest<GetAvailableSlotsResult>
 {
     public Guid BusinessId { get; init; }
 

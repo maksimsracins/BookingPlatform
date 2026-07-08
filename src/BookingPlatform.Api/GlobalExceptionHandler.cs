@@ -1,8 +1,9 @@
-
 using BookingPlatform.Application.Common.Exceptions;
+using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
 
 namespace BookingPlatform.Api;
+
 public sealed class GlobalExceptionHandler : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(
@@ -10,17 +11,31 @@ public sealed class GlobalExceptionHandler : IExceptionHandler
         Exception exception,
         CancellationToken cancellationToken)
     {
-    var statusCode = exception switch
-    {
-        BusinessNotFoundException => StatusCodes.Status404NotFound,
-        ClientNotFoundException => StatusCodes.Status404NotFound,
-        EmployeeNotFoundException => StatusCodes.Status404NotFound,
-        ServiceNotFoundException => StatusCodes.Status404NotFound,
+        if (exception is ValidationException validationException)
+        {
+            httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
 
-        EmployeeBusyException => Microsoft.AspNetCore.Http.StatusCodes.Status409Conflict,
+            await httpContext.Response.WriteAsJsonAsync(
+                validationException.Errors
+                    .GroupBy(x => x.PropertyName)
+                    .ToDictionary(
+                        g => g.Key,
+                        g => g.Select(e => e.ErrorMessage).ToArray()),
+                cancellationToken);
 
-        _ => Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError
-    };
+            return true;
+        }
+
+        var statusCode = exception switch
+        {
+            BusinessNotFoundException => StatusCodes.Status404NotFound,
+            ClientNotFoundException => StatusCodes.Status404NotFound,
+            EmployeeNotFoundException => StatusCodes.Status404NotFound,
+            ServiceNotFoundException => StatusCodes.Status404NotFound,
+            EmployeeBusyException => StatusCodes.Status409Conflict,
+
+            _ => StatusCodes.Status500InternalServerError
+        };
 
         httpContext.Response.StatusCode = statusCode;
 

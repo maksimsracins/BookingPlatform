@@ -4,20 +4,15 @@ using BookingPlatform.Application.Common.Abstractions.Persistance;
 using BookingPlatform.Application.Common.Exceptions;
 using BookingPlatform.Application.Common.Scheduling;
 using BookingPlatform.Core.Entities;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-public sealed class GetAvailableSlotsHandler
+public sealed class GetAvailableSlotsHandler(
+    IBookingDbContext context,
+    AvailableSlotsCalculator calculator) : IRequestHandler<GetAvailableSlotsQuery, GetAvailableSlotsResult>
 {
-    private readonly IBookingDbContext _context;
-    private readonly AvailableSlotsCalculator _calculator;
-
-    public GetAvailableSlotsHandler(
-        IBookingDbContext context,
-        AvailableSlotsCalculator calculator)
-    {
-        _context = context;
-        _calculator = calculator;
-    }
+    private readonly IBookingDbContext _context = context;
+    private readonly AvailableSlotsCalculator _calculator = calculator;
 
     public async Task<GetAvailableSlotsResult> Handle(
         GetAvailableSlotsQuery query,

@@ -1,11 +1,12 @@
 using BookingPlatform.Application.Common.Abstractions.Persistance;
 using BookingPlatform.Application.Common.Exceptions;
 using BookingPlatform.Core.Entities;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookingPlatform.Application.Features.Booking.Create;
 
-public sealed class CreateBookingHandler(IBookingDbContext context)
+public sealed class CreateBookingHandler(IBookingDbContext context) : IRequestHandler<CreateBookingCommand, CreateBookingResult>
 {
     private readonly IBookingDbContext _context = context;
 
