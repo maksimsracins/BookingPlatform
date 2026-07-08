@@ -54,6 +54,7 @@ logs/
 *.log
 .cache/
 coverage/
+node_modules/
 
 # ----- Temporary files -----
 *.tmp
