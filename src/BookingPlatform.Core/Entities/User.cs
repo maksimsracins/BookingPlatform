@@ -30,6 +30,12 @@ public sealed class User
 
     public DateTime CreatedAt { get; private set; }
 
+    public bool EmailConfirmed { get; private set; }
+
+    public DateTime? LastLoginAt { get; private set; }
+
+    public bool IsActive { get; private set; } = true;
+
     public IReadOnlyCollection<BusinessUser> Businesses => _businesses;
 
     public IReadOnlyCollection<RefreshToken> RefreshTokens => _refreshTokens;
@@ -46,5 +52,19 @@ public sealed class User
         _ = new MailAddress(normalized);
 
         return normalized;
+    }
+    public void ConfirmEmail()
+    {
+        EmailConfirmed = true;
+    }
+
+    public void UpdateLastLogin()
+    {
+        LastLoginAt = DateTime.UtcNow;
+    }
+
+    public void Deactivate()
+    {
+        IsActive = false;
     }
 }

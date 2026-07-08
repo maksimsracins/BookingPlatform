@@ -1,0 +1,51 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace BookingPlatform.Infrastructure.Migrations
+{
+    /// <inheritdoc />
+    public partial class AddUserFields : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.AddColumn<bool>(
+                name: "EmailConfirmed",
+                table: "users",
+                type: "boolean",
+                nullable: false,
+                defaultValue: false);
+
+            migrationBuilder.AddColumn<bool>(
+                name: "IsActive",
+                table: "users",
+                type: "boolean",
+                nullable: false,
+                defaultValue: false);
+
+            migrationBuilder.AddColumn<DateTime>(
+                name: "LastLoginAt",
+                table: "users",
+                type: "timestamp with time zone",
+                nullable: true);
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropColumn(
+                name: "EmailConfirmed",
+                table: "users");
+
+            migrationBuilder.DropColumn(
+                name: "IsActive",
+                table: "users");
+
+            migrationBuilder.DropColumn(
+                name: "LastLoginAt",
+                table: "users");
+        }
+    }
+}

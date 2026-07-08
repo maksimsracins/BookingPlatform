@@ -51,7 +51,7 @@ public sealed class CreateBookingHandler(IBookingDbContext context) : IRequestHa
         return new CreateBookingResult(appointment.Id);
     }
 
-    private async Task<Business> GetBusinessAsync(
+    private async Task<BookingPlatform.Core.Entities.Business> GetBusinessAsync(
         Guid businessId,
         CancellationToken cancellationToken)
     {
@@ -120,7 +120,7 @@ public sealed class CreateBookingHandler(IBookingDbContext context) : IRequestHa
     }
 
     private static Appointment CreateAppointment(
-        Business business,
+        BookingPlatform.Core.Entities.Business business,
         Service service,
         Employee employee,
         Client client,

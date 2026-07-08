@@ -30,4 +30,10 @@ public class BookingDbContext
     public DbSet<Appointment> Appointments { get; set; } = null!;
 
     public DbSet<EmployeeWorkingHours> EmployeeWorkingHours { get; set; } = null!;
+
+    public DbSet<User> Users => Set<User>();
+
+    public DbSet<BusinessUser> BusinessUsers => Set<BusinessUser>();
+
+    public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 }
