@@ -39,6 +39,9 @@ public class Business
     public ICollection<Client> Clients { get; } = [];
 
     public ICollection<Appointment> Appointments { get; } = [];
+    private readonly List<BusinessUser> _users = [];
+
+    public IReadOnlyCollection<BusinessUser> Users => _users;
 
     public void ChangePhone(string newPhone)
     {
