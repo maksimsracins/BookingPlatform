@@ -6,16 +6,14 @@ public class Business
     {
     }
 
-    public Business(string name, string phone, string address, string telegramBotToken, string timeZone, TimeSpan slotInterval)
-    {
+    private Business(string name, string phone, string address, string timeZone, TimeSpan slotInterval)
+    {   
         Id = Guid.NewGuid();
         Name = name;
         Phone = phone;
         Address = address;
         TimeZone = timeZone;
         IsActive = true;
-        CreatedAt = DateTime.UtcNow;
-        UpdatedAt = CreatedAt;
         SlotInterval = slotInterval;
     }
 
@@ -46,19 +44,38 @@ public class Business
     public void ChangePhone(string newPhone)
     {
         Phone = newPhone;
+        Update();
     }
     public void ChangeAddress(string newAddress)
     {
         Address = newAddress;
+        Update();
     }
 
     public void Activate()
     {
         IsActive = true;
+        Update();
     }
 
     public void Deactivate()
     {
         IsActive = false;
+        Update();
+    }
+
+    public void Update()
+    {
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    public static Business Create(string name)
+    {
+        return new Business(
+            name,
+            string.Empty,
+            string.Empty,
+            "Europe/Riga",
+            TimeSpan.FromMinutes(15));
     }
 }

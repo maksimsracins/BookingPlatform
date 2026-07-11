@@ -9,7 +9,7 @@ public sealed class ClientBuilder
 
     private string _fullName = "Test Client";
     private string _phone = "+37120000000";
-    private long _telegramId = 123456789;
+    private string _externalId = "123456789";
     private string _username = "test_user";
     private string _notes = "";
 
@@ -21,13 +21,10 @@ public sealed class ClientBuilder
 
     public Client Build()
     {
-        return new Client(
-            _id,
-            _businessId,
+        return Client.Create(
+            _businessId,    
             _fullName,
             _phone,
-            _username,
-            _telegramId,
-            _notes);
+            _externalId);
     }
 }

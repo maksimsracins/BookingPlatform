@@ -33,6 +33,7 @@ public sealed class GlobalExceptionHandler : IExceptionHandler
             EmployeeNotFoundException => StatusCodes.Status404NotFound,
             ServiceNotFoundException => StatusCodes.Status404NotFound,
             EmployeeBusyException => StatusCodes.Status409Conflict,
+            EmailAlreadyExistException => StatusCodes.Status409Conflict,
 
             _ => StatusCodes.Status500InternalServerError
         };

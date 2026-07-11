@@ -1,6 +1,8 @@
 using BookingPlatform.Application.Common.Abstractions.Persistance;
+using BookingPlatform.Application.Common.Abstractions.Security;
 using BookingPlatform.Application.Common.Scheduling;
 using BookingPlatform.Infrastructure.Persistence.Context;
+using BookingPlatform.Infrastructure.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +19,8 @@ public static class DependencyInjection
             configuration.GetConnectionString("Default")
             ?? throw new InvalidOperationException(
                 "Connection string 'DefaultConnection' not found.");
+
+        services.AddScoped<IPasswordHasher, PasswordHasher>();
 
         services.AddDbContext<BookingDbContext>(options =>
         {

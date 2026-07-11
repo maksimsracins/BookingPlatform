@@ -18,7 +18,7 @@ public class ClientConfiguration : IEntityTypeConfiguration<Client>
         builder.Property(x => x.Phone)
             .HasMaxLength(30);
 
-        builder.Property(x => x.TelegramUserName)
+        builder.Property(x => x.ExternalId)
             .HasMaxLength(100);
 
         builder.Property(x => x.Notes)
@@ -27,7 +27,7 @@ public class ClientConfiguration : IEntityTypeConfiguration<Client>
         builder.HasIndex(x => new
         {
             x.BusinessId,
-            x.TelegramUserId
+            x.ExternalId
         }).IsUnique();
 
         builder.HasOne(x => x.Business)

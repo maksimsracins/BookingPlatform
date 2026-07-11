@@ -42,8 +42,8 @@ public sealed class GetAvailableSlotsTests : IntegrationTest
             .From(new TimeOnly(9, 0))
             .To(new TimeOnly(12, 0))
             .Build();
-
-        var date = new DateOnly(2026, 6, 29); // Monday
+            
+        var date = new DateOnly(2026, 07, 13);
 
         var appointment = new AppointmentBuilder()
             .ForBusiness(business.Id)
