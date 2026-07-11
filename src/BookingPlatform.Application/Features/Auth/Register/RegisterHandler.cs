@@ -34,14 +34,13 @@ public sealed class RegisterHandler
             throw new EmailAlreadyExistException(command.Email);
         }
 
-        var user = new User(
-            Guid.NewGuid(),
-            command.Email,
+        var user = User.Create(
+            command.Email,  
             _passwordHasher.Hash(command.Password));
 
         var business = BookingPlatform.Core.Entities.Business.Create(command.BusinessName);
 
-        var businessUser = new BusinessUser(
+        var businessUser = BusinessUser.Create(
             business.Id,
             user.Id,
             BusinessRole.Owner);

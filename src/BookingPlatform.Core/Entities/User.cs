@@ -11,15 +11,19 @@ public sealed class User
     {
     }
 
-    public User(
-        Guid id,
+    private User(
         string email,
         string passwordHash)
     {
-        Id = id;
+        Id = Guid.NewGuid();
         Email = NormalizeEmail(email);
         PasswordHash = passwordHash;
         CreatedAt = DateTime.UtcNow;
+    }
+
+    public static User Create(string email, string password)
+    {
+        return new User(email, password);
     }
 
     public Guid Id { get; private set; }

@@ -2,8 +2,7 @@ using BookingPlatform.Infrastructure.Persistence.Context;
 using BookingPlatform.IntegrationTests.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
-public abstract class IntegrationTest
-    : IClassFixture<PostgreSqlFixture>
+public abstract class IntegrationTest : IClassFixture<PostgreSqlFixture>
 {
     protected readonly HttpClient Client;
 

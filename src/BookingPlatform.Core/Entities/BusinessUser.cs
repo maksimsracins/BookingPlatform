@@ -8,14 +8,22 @@ public sealed class BusinessUser
     {
     }
 
-    public BusinessUser(
-        Guid businessId,
-        Guid userId,
-        BusinessRole role)
+    private BusinessUser(Guid businessId, Guid userId, BusinessRole role)
     {
         BusinessId = businessId;
         UserId = userId;
         Role = role;
+    }
+
+    public static BusinessUser Create(
+        Guid businessId,
+        Guid userId,
+        BusinessRole role)
+    {
+        return new BusinessUser(
+            businessId,
+            userId,
+            role);
     }
 
     public Guid BusinessId { get; private set; }
