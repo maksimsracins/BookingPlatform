@@ -1,6 +1,8 @@
+using BookingPlatform.Application.Common.Abstractions.Authentication;
 using BookingPlatform.Application.Common.Abstractions.Persistance;
 using BookingPlatform.Application.Common.Abstractions.Security;
 using BookingPlatform.Application.Common.Scheduling;
+using BookingPlatform.Infrastructure.Authentication;
 using BookingPlatform.Infrastructure.Persistence.Context;
 using BookingPlatform.Infrastructure.Security;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +22,13 @@ public static class DependencyInjection
             ?? throw new InvalidOperationException(
                 "Connection string 'DefaultConnection' not found.");
 
+        services.AddSingleton<TimeProvider>(TimeProvider.System);
+        
+        services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.SectionName));
+        services.AddScoped<IJwtProvider, JwtProvider>();
+        services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
+        services.AddScoped<ITokenHasher, TokenHasher>();
+
         services.AddScoped<IPasswordHasher, PasswordHasher>();
 
         services.AddDbContext<BookingDbContext>(options =>
@@ -31,6 +40,8 @@ public static class DependencyInjection
             provider.GetRequiredService<BookingDbContext>());
         
         services.AddSingleton<AvailableSlotsCalculator>();
+        services.AddHttpContextAccessor();
+        services.AddScoped<ICurrentUser, CurrentUser>();
 
         return services;
     }
