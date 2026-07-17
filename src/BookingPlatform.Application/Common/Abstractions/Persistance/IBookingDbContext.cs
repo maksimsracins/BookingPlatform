@@ -21,6 +21,8 @@ public interface IBookingDbContext
 
     DbSet<BusinessUser> BusinessUsers { get; }
 
+    DbSet<RefreshToken> RefreshTokens { get; }
+
     Task<int> SaveChangesAsync(
         CancellationToken cancellationToken = default);
 }

@@ -1,8 +1,9 @@
+using BookingPlatform.Application.Authentication;
 using BookingPlatform.Application.Common.Behaviors;
 using BookingPlatform.Application.Features.Booking.Create;
-using BookingPlatform.Application.Features.Booking.GetAvailableSlots;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 
 namespace BookingPlatform.Application;
 

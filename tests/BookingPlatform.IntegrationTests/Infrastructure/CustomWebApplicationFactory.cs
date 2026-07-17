@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using ApiProgram = BookingPlatform.Api.Program;
 
 namespace BookingPlatform.IntegrationTests.Infrastructure;
 
-public sealed class CustomWebApplicationFactory
-    : WebApplicationFactory<Program>
+public sealed class CustomWebApplicationFactory : WebApplicationFactory<ApiProgram>
 {
     private readonly string _connectionString;
 

@@ -1,5 +1,5 @@
 using System.Text;
-using BookingPlatform.Infrastructure.Authentication;
+using BookingPlatform.Application.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -8,13 +8,15 @@ public static class AuthenticationExtensions{
     public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
         var options = configuration
-            .GetSection(JwtOptions.SectionName)
-            .Get<JwtOptions>()!;
+            .GetSection(AuthenticationOptions.SectionName)
+            .Get<AuthenticationOptions>()!;
 
         services
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(jwt =>
             {
+                jwt.MapInboundClaims = false;
+
                 jwt.TokenValidationParameters =
                     new TokenValidationParameters
                     {
@@ -28,9 +30,13 @@ public static class AuthenticationExtensions{
 
                         IssuerSigningKey =
                             new SymmetricSecurityKey(
-                                Encoding.UTF8.GetBytes(options.SecretKey))
+                                Encoding.UTF8.GetBytes(options.SecretKey)),
+
+                        ClockSkew = TimeSpan.Zero
                     };
             });
+
+        services.AddAuthorization();
 
         return services;
     }

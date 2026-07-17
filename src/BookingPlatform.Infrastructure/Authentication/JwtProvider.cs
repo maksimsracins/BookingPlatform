@@ -1,3 +1,4 @@
+using BookingPlatform.Application.Authentication;
 using BookingPlatform.Application.Common.Abstractions.Authentication;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -10,19 +11,18 @@ namespace BookingPlatform.Infrastructure.Authentication;
 
 public sealed class JwtProvider : IJwtProvider
 {
-    private readonly JwtOptions _options;
+    private readonly AuthenticationOptions _options;
     private readonly TimeProvider _timeProvider;
 
-    public JwtProvider(IOptions<JwtOptions> options, TimeProvider timeProvider)
+    public JwtProvider(IOptions<AuthenticationOptions> options, TimeProvider timeProvider)
     {
         _options = options.Value;
         _timeProvider = timeProvider;
     }
 
-    public JwtToken Generate(
-        JwtDescriptor descriptor)
+    public JwtToken Generate(JwtDescriptor descriptor)
     {
-        var expiresAt = _timeProvider.GetUtcNow().UtcDateTime.AddMinutes(_options.ExpirationMinutes);
+        var expiresAt = _timeProvider.GetUtcNow().UtcDateTime.AddMinutes(_options.AccessTokenExpirationMinutes);
 
         var claims = new List<Claim>
         {

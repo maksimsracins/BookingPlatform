@@ -6,7 +6,7 @@ public sealed class RefreshToken
     {
     }
 
-    public RefreshToken(
+    private RefreshToken(
         Guid id,
         Guid userId,
         string tokenHash,
@@ -23,11 +23,22 @@ public sealed class RefreshToken
         CreatedAt = DateTime.UtcNow;
     }
 
+    public static RefreshToken Create(Guid userId, string tokenHash, DateTime expiresAt)
+    {
+        return new RefreshToken(
+            Guid.NewGuid(),
+            userId,
+            tokenHash,
+            expiresAt,
+            null,
+            null);
+    }
+
     public Guid Id { get; private set; }
 
     public Guid UserId { get; private set; }
 
-    public string TokenHash { get; private set; }
+    public string TokenHash { get; private set; } = default!;
 
     public DateTime ExpiresAt { get; private set; }
 
@@ -40,6 +51,15 @@ public sealed class RefreshToken
     public string? IpAddress { get; private set; }
 
     public User User { get; private set; } = default!;
+
+    public bool IsExpired(DateTime utcNow)
+    => ExpiresAt <= utcNow;
+
+    public bool IsRevoked()
+        => RevokedAt is not null;
+
+    public bool IsActive(DateTime utcNow)
+        => !IsRevoked() && !IsExpired(utcNow);
 
     public void Revoke()
     {

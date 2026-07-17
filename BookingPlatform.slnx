@@ -5,5 +5,6 @@
   <Project Path="src/BookingPlatform.Infrastructure/BookingPlatform.Infrastructure.csproj" />
   <Project Path="src/BookingPlatform.Shared/BookingPlatform.Shared.csproj" />
   <Project Path="src/BookingPlatform.Telegram/BookingPlatform.Telegram.csproj" />
-  <Project Path="tests/BookingPlatform.Tests/BookingPlatform.Tests.csproj" />
+  <Project Path="tests/BookingPlatform.IntegrationTests/BookingPlatform.IntegrationTests.csproj" />
+  <Project Path="tests/BookingPlatform.UnitTests/BookingPlatform.Tests.csproj" />
 </Solution>

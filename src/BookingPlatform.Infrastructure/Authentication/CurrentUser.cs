@@ -21,6 +21,10 @@ public sealed class CurrentUser : ICurrentUser
             var value = _httpContextAccessor.HttpContext?.User
                 .FindFirstValue(JwtRegisteredClaimNames.Sub);
 
+            var claims = _httpContextAccessor.HttpContext!.User.Claims
+                .Select(c => $"{c.Type} = {c.Value}")
+                .ToList();
+
             if (string.IsNullOrWhiteSpace(value))
             {
                 throw new UnauthorizedAccessException();

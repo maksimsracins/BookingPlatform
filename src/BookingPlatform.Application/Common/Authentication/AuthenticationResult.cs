@@ -1,4 +1,5 @@
+namespace BookingPlatform.Application.Common.Authentication;
+
 public sealed record AuthenticationResult(
-    string AccessToken,
-    string RefreshToken,
-    DateTime ExpiresAt);
+    JwtToken AccessToken,
+    string RefreshToken);

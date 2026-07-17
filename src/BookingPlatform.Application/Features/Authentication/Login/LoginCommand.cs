@@ -1,4 +1,4 @@
-using BookingPlatform.Application.Features.Authentication.Login;
+using BookingPlatform.Application.Common.Authentication;
 using MediatR;
 
-public sealed record LoginCommand(string Email, string Password) : IRequest<LoginResponse>;
+public sealed record LoginCommand(string Email, string Password) : IRequest<AuthenticationResult>;
