@@ -61,8 +61,11 @@ public sealed class RefreshToken
     public bool IsActive(DateTime utcNow)
         => !IsRevoked() && !IsExpired(utcNow);
 
-    public void Revoke()
+    public void Revoke(DateTime utcNow)
     {
-        RevokedAt = DateTime.UtcNow;
+        if (RevokedAt is not null)
+            return;
+
+        RevokedAt = utcNow;
     }
 }

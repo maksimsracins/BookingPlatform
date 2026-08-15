@@ -36,9 +36,7 @@ public sealed class LoginHandler : IRequestHandler<LoginCommand,AuthenticationRe
         _authenticationOptions = authenticationOptions;
     }
 
-    public async Task<AuthenticationResult> Handle(
-        LoginCommand command,
-        CancellationToken cancellationToken)
+    public async Task<AuthenticationResult> Handle(LoginCommand command, CancellationToken cancellationToken)
     {
         var email = command.Email.Trim().ToLowerInvariant();
 
@@ -50,9 +48,7 @@ public sealed class LoginHandler : IRequestHandler<LoginCommand,AuthenticationRe
         if (user is null)
             throw new InvalidCredentialException();
 
-        if (!_passwordHasher.Verify(
-                command.Password,
-                user.PasswordHash))
+        if (!_passwordHasher.Verify(command.Password, user.PasswordHash))
         {
             throw new InvalidCredentialException();
         }

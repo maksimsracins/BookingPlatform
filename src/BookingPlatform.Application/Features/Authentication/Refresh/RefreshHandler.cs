@@ -52,7 +52,7 @@ public sealed class RefreshHandler
                 refreshToken.User.Id,
                 refreshToken.User.Email));
 
-        refreshToken.Revoke();
+        refreshToken.Revoke(DateTime.UtcNow);
 
         var newRefresh = _refreshTokenGenerator.Generate();
 

@@ -1,9 +1,11 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using BookingPlatform.Api.Authentication;
+using BookingPlatform.Application.Authentication;
 using BookingPlatform.Application.Features.Auth.Register;
 using BookingPlatform.Application.Features.Authentication.Refresh;
 using MediatR;
+using Microsoft.Extensions.Options;
 
 namespace BookingPlatform.Api.Endpoints.Auth;
 
@@ -14,6 +16,7 @@ public static class AuthEndpoints
         app.MapPost("/api/auth/register", Register);
         app.MapPost("/api/auth/login", Login);
         app.MapPost("/api/auth/refresh", Refresh);
+        app.MapPost("/api/auth/logout", Logout);
         app.MapGet(
             "/api/auth/me",
             async (
@@ -34,7 +37,8 @@ public static class AuthEndpoints
     private static async Task<IResult> Login(
         LoginCommand command, 
         ISender sender, 
-        HttpContext httpContext, 
+        HttpContext httpContext,
+        IOptions<AuthenticationOptions> options,
         CancellationToken cancellationToken)
     {
         var result = await sender.Send(
@@ -49,7 +53,7 @@ public static class AuthEndpoints
                 HttpOnly = true,
                 Secure = true,
                 SameSite = SameSiteMode.Strict,
-                Expires = result.AccessToken.ExpiresAt.AddDays(30)
+                Expires = result.AccessToken.ExpiresAt.AddDays(options.Value.RefreshTokenExpirationDays)
             });
 
         return Results.Ok(result);
@@ -66,7 +70,11 @@ public static class AuthEndpoints
             result);
     }
 
-    private static async Task<IResult> Refresh(HttpContext httpContext, ISender sender, CancellationToken cancellationToken)
+    private static async Task<IResult> Refresh(
+        HttpContext httpContext, 
+        ISender sender, 
+        IOptions<AuthenticationOptions> options, 
+        CancellationToken cancellationToken)
     {
         if (!httpContext.Request.Cookies.TryGetValue(
                 CookieNames.RefreshToken,
@@ -84,6 +92,8 @@ public static class AuthEndpoints
             {
                 HttpOnly = true,
                 Secure = true,
+                Expires = DateTimeOffset.UtcNow.AddDays(
+                    options.Value.RefreshTokenExpirationDays),
                 SameSite = SameSiteMode.Strict
             });
 
@@ -92,5 +102,16 @@ public static class AuthEndpoints
             accessToken = result.AccessToken.AccessToken,
             expiresAt = result.AccessToken.ExpiresAt
         });
+    }
+
+    private static async Task<IResult> Logout(HttpContext httpContext, ISender sender, CancellationToken cancellationToken)
+    {
+        httpContext.Request.Cookies.TryGetValue(CookieNames.RefreshToken, out var refreshToken);
+
+        await sender.Send(new LogoutCommand(refreshToken), cancellationToken);
+
+        httpContext.Response.Cookies.Delete(CookieNames.RefreshToken);
+
+        return Results.NoContent();
     }
 }
