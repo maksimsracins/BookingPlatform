@@ -9,7 +9,14 @@ public static class AuthenticationExtensions{
     {
         var options = configuration
             .GetSection(JwtOptions.SectionName)
-            .Get<JwtOptions>()!;
+            .Get<JwtOptions>() ?? new JwtOptions();
+
+        if (string.IsNullOrWhiteSpace(options.SecretKey)
+            || Encoding.UTF8.GetByteCount(options.SecretKey) < 32)
+        {
+            throw new InvalidOperationException(
+                "Configure Jwt:SecretKey with a secret of at least 32 bytes using a secret store or the Jwt__SecretKey environment variable.");
+        }
 
         services
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

@@ -2,6 +2,7 @@ using BookingPlatform.Application.Common.Abstractions.Persistance;
 using BookingPlatform.Infrastructure.Persistence.Context;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,6 +20,14 @@ public sealed class CustomWebApplicationFactory
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
+        builder.ConfigureAppConfiguration((_, configuration) =>
+        {
+            configuration.AddInMemoryCollection(new Dictionary<string, string?>
+            {
+                ["Jwt:SecretKey"] = "integration-test-only-signing-key-32-bytes"
+            });
+        });
+
         builder.ConfigureServices(services =>
         {
             var descriptor = services.SingleOrDefault(x =>
