@@ -16,6 +16,15 @@ public sealed class GetAvailableSlotsTests : IntegrationTest
     }
 
     private readonly AvailableSlotsCalculator _calculator = new();
+
+    private static DateOnly NextFutureMonday()
+    {
+        const int DaysPerWeek = 7;
+
+        var daysUntilMonday = ((int)DayOfWeek.Monday - (int)DateTime.Today.DayOfWeek + DaysPerWeek) % DaysPerWeek;
+
+        return DateOnly.FromDateTime(DateTime.Today.AddDays(daysUntilMonday + DaysPerWeek));
+    }
     
 
     [Fact]
@@ -43,7 +52,7 @@ public sealed class GetAvailableSlotsTests : IntegrationTest
             .To(new TimeOnly(12, 0))
             .Build();
             
-        var date = new DateOnly(2026, 07, 13);
+        var date = NextFutureMonday();
 
         var appointment = new AppointmentBuilder()
             .ForBusiness(business.Id)

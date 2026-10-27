@@ -1,6 +1,8 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using BookingPlatform.Application.Features.Auth.Register;
+using BookingPlatform.Application.Features.Authentication.Login;
+using BookingPlatform.Application.Features.Authentication.Refresh;
 using MediatR;
 
 namespace BookingPlatform.Api.Endpoints.Auth;
@@ -11,6 +13,7 @@ public static class AuthEndpoints
     {
         app.MapPost("/api/auth/register", Register);
         app.MapPost("/api/auth/login", Login);
+        app.MapPost("/api/auth/refresh", Refresh);
         app.MapGet(
             "/api/auth/me",
             async (
@@ -29,6 +32,15 @@ public static class AuthEndpoints
     }
 
     private static async Task<IResult> Login(LoginCommand command, ISender sender, CancellationToken cancellationToken)
+    {
+        var result = await sender.Send(
+            command,
+            cancellationToken);
+
+        return Results.Ok(result);
+    }
+
+    private static async Task<IResult> Refresh(RefreshCommand command, ISender sender, CancellationToken cancellationToken)
     {
         var result = await sender.Send(
             command,

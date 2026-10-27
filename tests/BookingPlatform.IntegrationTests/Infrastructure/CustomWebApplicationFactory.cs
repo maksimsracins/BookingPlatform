@@ -20,13 +20,8 @@ public sealed class CustomWebApplicationFactory
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.ConfigureAppConfiguration((_, configuration) =>
-        {
-            configuration.AddInMemoryCollection(new Dictionary<string, string?>
-            {
-                ["Jwt:SecretKey"] = "integration-test-only-signing-key-32-bytes"
-            });
-        });
+        // UseSetting applies before Program reads configuration; ConfigureAppConfiguration runs too late for AddJwtAuthentication.
+        builder.UseSetting("Jwt:SecretKey", "integration-test-only-signing-key-32-bytes");
 
         builder.ConfigureServices(services =>
         {

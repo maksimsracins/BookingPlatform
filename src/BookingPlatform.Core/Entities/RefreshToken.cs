@@ -2,7 +2,10 @@ namespace BookingPlatform.Core.Entities;
 
 public sealed class RefreshToken
 {
+    public static readonly TimeSpan DefaultLifetime = TimeSpan.FromDays(7);
+
     private RefreshToken()
+
     {
     }
 
@@ -27,7 +30,7 @@ public sealed class RefreshToken
 
     public Guid UserId { get; private set; }
 
-    public string TokenHash { get; private set; }
+    public string TokenHash { get; private set; } = default!;
 
     public DateTime ExpiresAt { get; private set; }
 
